@@ -9,6 +9,12 @@ Designed for Unity **2022 LTS** and **Unity 6 (v6000)**.
 2. Set App IDs in `Project Settings > Easy UMP`.
 3. Call `EasyUmp.Init(...)` and show the form as needed.
 
+## Why This Package?
+
+- The official UMP Unity plugin ships inside **GoogleMobileAds**, so you must import the full ads SDK even if you only want consent.
+- Mediation SDKs (e.g., MAX) often bundle UMP but may lag updates and limit control over the consent flow lifecycle.
+- This package is **UMP‑only**, gives you **full control** over when/if you show the form, and exposes **all IAB TCF consent strings**.
+
 ## Status
 
 - Android: ✅ Supported
@@ -40,6 +46,7 @@ Add to `Packages/manifest.json` or a Git URL.
    - **Enable Debug Logs**: toggles `easy-ump` tagged logs
    - **Auto-show Consent Form**: if enabled, `Init` will show the form automatically after success
    - **Test Device Hashed IDs**: add one per line or comma-separated (used if not provided in code)
+   - **Editor Popup**: enables a simple editor mock to test callbacks (Success/Fail)
 
 3. **Dependencies (EDM4U)**  
    This package ships an EDM4U dependency file:
