@@ -1,0 +1,21 @@
+apply plugin: 'com.android.library'
+
+android {
+    def compileSdk = rootProject.ext.has('compileSdkVersion') ? rootProject.ext.compileSdkVersion : 34
+    def minSdk = rootProject.ext.has('minSdkVersion') ? rootProject.ext.minSdkVersion : 21
+    def targetSdk = rootProject.ext.has('targetSdkVersion') ? rootProject.ext.targetSdkVersion : 34
+
+    compileSdkVersion compileSdk
+
+    defaultConfig {
+        minSdkVersion minSdk
+        targetSdkVersion targetSdk
+    }
+
+    lintOptions {
+        abortOnError false
+    }
+}
+
+dependencies {
+}
