@@ -7,6 +7,9 @@
   "overrideReferences": false,
   "precompiledReferences": [],
   "autoReferenced": true,
+  "internalsVisibleTo": [
+    "EasyUmp.Tests.Editor"
+  ],
   "defineConstraints": [],
   "versionDefines": [],
   "noEngineReferences": false
