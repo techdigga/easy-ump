@@ -12,7 +12,7 @@ Designed for Unity **2022 LTS** and **Unity 6 (v6000)**.
 
 ## Install (UPM)
 
-Package name: `techdigga.easy-ump`
+Package name: `com.techdigga.easy-ump`
 
 Add to `Packages/manifest.json` or a Git URL.
 
