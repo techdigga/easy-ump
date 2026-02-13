@@ -8,7 +8,7 @@ namespace EasyUmp
     /// <summary>
     /// iOS implementation that bridges to the native UMP SDK.
     /// </summary>
-    internal sealed class EasyUmpIos : IEasyUmp
+    internal sealed class EasyUmpIos : IUmpClient
     {
         private Action onInitSuccess;
         private Action<UmpError> onInitFailure;

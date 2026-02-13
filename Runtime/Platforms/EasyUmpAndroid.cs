@@ -7,7 +7,7 @@ namespace EasyUmp
     /// <summary>
     /// Android implementation that bridges to the native UMP SDK.
     /// </summary>
-    internal sealed class EasyUmpAndroid : IEasyUmp
+    internal sealed class EasyUmpAndroid : IUmpClient
     {
         private AndroidJavaClass java;
         private CallbackReceiver receiver;

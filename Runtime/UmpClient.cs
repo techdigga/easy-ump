@@ -3,15 +3,15 @@ namespace EasyUmp
     /// <summary>
     /// Public facade that routes calls to the active platform implementation.
     /// </summary>
-    public static class EasyUmp
+    public static class UmpClient
     {
-        private static IEasyUmp implementation;
+        private static IUmpClient implementation;
         private static bool consentStringsWarned;
 
         /// <summary>
         /// Lazily resolves the platform implementation.
         /// </summary>
-        private static IEasyUmp Impl
+        private static IUmpClient Impl
         {
             get
             {

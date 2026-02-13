@@ -5,7 +5,7 @@ namespace EasyUmp
     /// <summary>
     /// Platform abstraction for UMP functionality.
     /// </summary>
-    public interface IEasyUmp
+    public interface IUmpClient
     {
         /// <summary>
         /// Whether the current runtime supports UMP.

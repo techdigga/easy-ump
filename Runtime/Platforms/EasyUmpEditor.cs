@@ -5,7 +5,7 @@ namespace EasyUmp
     /// <summary>
     /// Editor-only implementation that reports unsupported platform.
     /// </summary>
-    internal sealed class EasyUmpEditor : IEasyUmp
+    internal sealed class EasyUmpEditor : IUmpClient
     {
         /// <summary>
         /// UMP is not supported in the Editor.

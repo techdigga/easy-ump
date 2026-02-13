@@ -1,7 +1,7 @@
 {
   "name": "EasyUmp.Editor",
   "references": [
-    "EasyUmp"
+    "EasyUmp.Runtime"
   ],
   "includePlatforms": [
     "Editor"

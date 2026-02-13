@@ -9,7 +9,7 @@ Designed for Unity **2022 LTS** and **Unity 6 (v6000)**.
 
 1. Install the package.
 2. Set App IDs in `Project Settings > Easy UMP`.
-3. Call `EasyUmp.Init(...)` and show the form as needed.
+3. Call `UmpClient.Init(...)` and show the form as needed.
 
 ## Why This Package?
 
@@ -96,35 +96,35 @@ Ensure the App Id matches your AdMob App Id in the Google console. This key is r
 If you enable minification and see consent SDK classes stripped, add keep rules for the consent SDK.  
 Community reports suggest keeping `com.google.android.gms.internal.consent_sdk.**`.
 
-## API (EasyUmp)
+## API (UmpClient)
 
-- `EasyUmp.Init(options, onSuccess, onFailure)`
-- `EasyUmp.Show(onDismissed, onFailure)`
-- `EasyUmp.Reshow(onDismissed, onFailure)`
-- `EasyUmp.Reset()`
-- `EasyUmp.CanRequestAds`
-- `EasyUmp.ConsentStatus`
-- `EasyUmp.IsSupported`
-- `EasyUmp.GetTcString()`
-- `EasyUmp.GetAdditionalConsentString()`
-- `EasyUmp.GetPurposeConsentsString()`
-- `EasyUmp.GetGdprApplies()` (returns `-1` if unknown)
+- `UmpClient.Init(options, onSuccess, onFailure)`
+- `UmpClient.Show(onDismissed, onFailure)`
+- `UmpClient.Reshow(onDismissed, onFailure)`
+- `UmpClient.Reset()`
+- `UmpClient.CanRequestAds`
+- `UmpClient.ConsentStatus`
+- `UmpClient.IsSupported`
+- `UmpClient.GetTcString()`
+- `UmpClient.GetAdditionalConsentString()`
+- `UmpClient.GetPurposeConsentsString()`
+- `UmpClient.GetGdprApplies()` (returns `-1` if unknown)
 
 ## API Reference (Summary)
 
 | Method / Property | Description | Returns |
 | --- | --- | --- |
-| `EasyUmp.IsSupported` | Whether UMP is supported on this platform. | `bool` |
-| `EasyUmp.CanRequestAds` | Whether ads can be requested per consent state. | `bool` |
-| `EasyUmp.ConsentStatus` | Current consent status. | `UmpConsentStatus` |
-| `EasyUmp.Init(options, onSuccess, onFailure)` | Initializes UMP and fetches consent info. | `void` |
-| `EasyUmp.Show(onDismissed, onFailure)` | Shows consent form if required. | `void` |
-| `EasyUmp.Reshow(onDismissed, onFailure)` | Shows privacy options form. | `void` |
-| `EasyUmp.Reset()` | Resets locally stored consent info. | `void` |
-| `EasyUmp.GetTcString()` | IAB TCF TC String. | `string` |
-| `EasyUmp.GetAdditionalConsentString()` | IAB TCF Additional Consent String. | `string` |
-| `EasyUmp.GetPurposeConsentsString()` | IAB TCF Purpose Consents String. | `string` |
-| `EasyUmp.GetGdprApplies()` | IAB TCF GDPR Applies (`-1` if unknown). | `int` |
+| `UmpClient.IsSupported` | Whether UMP is supported on this platform. | `bool` |
+| `UmpClient.CanRequestAds` | Whether ads can be requested per consent state. | `bool` |
+| `UmpClient.ConsentStatus` | Current consent status. | `UmpConsentStatus` |
+| `UmpClient.Init(options, onSuccess, onFailure)` | Initializes UMP and fetches consent info. | `void` |
+| `UmpClient.Show(onDismissed, onFailure)` | Shows consent form if required. | `void` |
+| `UmpClient.Reshow(onDismissed, onFailure)` | Shows privacy options form. | `void` |
+| `UmpClient.Reset()` | Resets locally stored consent info. | `void` |
+| `UmpClient.GetTcString()` | IAB TCF TC String. | `string` |
+| `UmpClient.GetAdditionalConsentString()` | IAB TCF Additional Consent String. | `string` |
+| `UmpClient.GetPurposeConsentsString()` | IAB TCF Purpose Consents String. | `string` |
+| `UmpClient.GetGdprApplies()` | IAB TCF GDPR Applies (`-1` if unknown). | `int` |
 
 ## Usage
 
@@ -138,12 +138,12 @@ var options = new UmpInitOptions
     TestDeviceHashedIds = { "TEST_DEVICE_HASH" }
 };
 
-EasyUmp.Init(
+UmpClient.Init(
     options,
     onSuccess: () =>
     {
         // If Auto-show is enabled, this is called after the form is shown/dismissed.
-        if (EasyUmp.CanRequestAds)
+        if (UmpClient.CanRequestAds)
         {
             // Ready to request ads.
         }
@@ -154,20 +154,20 @@ EasyUmp.Init(
     });
 
 // Manually show (if Auto-show is disabled)
-EasyUmp.Show(
+UmpClient.Show(
     onDismissed: () => { },
     onFailure: error => { UnityEngine.Debug.LogError(error.Message); });
 
 // Show privacy options form
-EasyUmp.Reshow(
+UmpClient.Reshow(
     onDismissed: () => { },
     onFailure: error => { UnityEngine.Debug.LogError(error.Message); });
 
 // IAB TCF consent strings
-var tcString = EasyUmp.GetTcString();
-var addtlConsent = EasyUmp.GetAdditionalConsentString();
-var purposeConsents = EasyUmp.GetPurposeConsentsString();
-var gdprApplies = EasyUmp.GetGdprApplies();
+var tcString = UmpClient.GetTcString();
+var addtlConsent = UmpClient.GetAdditionalConsentString();
+var purposeConsents = UmpClient.GetPurposeConsentsString();
+var gdprApplies = UmpClient.GetGdprApplies();
 ```
 
 ## IAB TCF Consent Strings
