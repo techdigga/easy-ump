@@ -76,7 +76,7 @@ namespace EasyUmp.Editor
             }
 
             var nsmgr = new XmlNamespaceManager(doc.NameTable);
-            nsmgr.AddNamespace("android", AndroidXmlNamespace);
+            nsmgr.AddNamespace("android", EasyUmpConstants.AndroidXmlNamespace);
 
             var application = doc.SelectSingleNode("/manifest/application") as XmlElement;
             if (application == null)
