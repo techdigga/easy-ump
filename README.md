@@ -1,5 +1,7 @@
 # Easy UMP
 
+[![openupm](https://img.shields.io/npm/v/com.techdigga.easy-ump?label=openupm&registry_uri=https://package.openupm.com)](https://openupm.com/packages/com.techdigga.easy-ump/)
+
 Lightweight Unity wrapper around Google’s User Messaging Platform (UMP) SDK for **Android and iOS**.  
 Designed for Unity **2022 LTS** and **Unity 6 (v6000)**.
 
@@ -27,6 +29,19 @@ Designed for Unity **2022 LTS** and **Unity 6 (v6000)**.
 Package name: `com.techdigga.easy-ump`
 
 Add to `Packages/manifest.json` or a Git URL.
+
+### Install via OpenUPM
+
+1. Add the OpenUPM registry:
+   - Name: OpenUPM
+   - URL: https://package.openupm.com
+2. Install package:
+   - `com.techdigga.easy-ump`
+
+Or via CLI:
+```
+openupm add com.techdigga.easy-ump
+```
 
 ## Setup
 
