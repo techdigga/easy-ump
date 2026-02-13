@@ -1,6 +1,6 @@
 {
   "name": "com.techdigga.easy-ump",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "displayName": "Easy UMP",
   "description": "Unity wrapper around Google's User Messaging Platform (Android + iOS) with EDM4U dependencies.",
   "icon": "Editor/Resources/easy-ump-icon.png",
