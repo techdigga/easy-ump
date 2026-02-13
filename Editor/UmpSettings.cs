@@ -153,7 +153,7 @@ namespace EasyUmp.Editor
                         new GUIContent("Editor Popup", "Simulate callbacks in the Editor."),
                         settings.EditorPopupMode);
                     EditorGUILayout.Space(6);
-                    EditorGUILayout.LabelField("Testing", EditorStyles.boldLabel);
+                    EditorGUILayout.LabelField("Test Devices", EditorStyles.boldLabel);
                     settings.TestDeviceHashedIdsRaw = EditorGUILayout.TextArea(
                         settings.TestDeviceHashedIdsRaw,
                         GUILayout.MinHeight(60));
