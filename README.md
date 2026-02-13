@@ -3,6 +3,12 @@
 Lightweight Unity wrapper around Google’s User Messaging Platform (UMP) SDK for **Android and iOS**.  
 Designed for Unity **2022 LTS** and **Unity 6 (v6000)**.
 
+## Quick Start
+
+1. Install the package.
+2. Set App IDs in `Project Settings > Easy UMP`.
+3. Call `EasyUmp.Init(...)` and show the form as needed.
+
 ## Status
 
 - Android: ✅ Supported
