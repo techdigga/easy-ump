@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace EasyUmp.Editor
 {
-    internal enum EditorPopupMode
+    public enum EditorPopupMode
     {
         Always = 0,
         OncePerSession = 1
