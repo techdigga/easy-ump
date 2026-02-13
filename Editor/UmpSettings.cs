@@ -85,6 +85,12 @@ namespace EasyUmp.Editor
             }
         }
 
+        internal string TestDeviceHashedIdsRaw
+        {
+            get => testDeviceHashedIds;
+            set => testDeviceHashedIds = value ?? string.Empty;
+        }
+
         [SerializeField] private bool autoShow;
 
         /// <summary>
@@ -148,8 +154,8 @@ namespace EasyUmp.Editor
                         settings.EditorPopupMode);
                     EditorGUILayout.Space(6);
                     EditorGUILayout.LabelField("Testing", EditorStyles.boldLabel);
-                    settings.testDeviceHashedIds = EditorGUILayout.TextArea(
-                        settings.testDeviceHashedIds,
+                    settings.TestDeviceHashedIdsRaw = EditorGUILayout.TextArea(
+                        settings.TestDeviceHashedIdsRaw,
                         GUILayout.MinHeight(60));
                     EditorGUILayout.HelpBox("Enter test device hashed IDs (one per line or comma-separated).", MessageType.Info);
                     if (EditorGUI.EndChangeCheck())
