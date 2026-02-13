@@ -1,6 +1,6 @@
-# Easy UMP (Android)
+# Easy UMP
 
-Lightweight Unity wrapper around Google’s User Messaging Platform (UMP) SDK for **Android only**.  
+Lightweight Unity wrapper around Google’s User Messaging Platform (UMP) SDK for **Android and iOS**.  
 Designed for Unity **2022 LTS** and **Unity 6 (v6000)**.
 
 ## Status
@@ -61,12 +61,12 @@ https://developers.google.com/admob/ump/android/quick-start
 
 ## iOS Info.plist
 
-Ensure the App Id matches your AdMob App Id in the Google console. This key is required for UMP initialization. citeturn2view0
+Ensure the App Id matches your AdMob App Id in the Google console. This key is required for UMP initialization.
 
 ## Android Minify (ProGuard/R8)
 
 If you enable minification and see consent SDK classes stripped, add keep rules for the consent SDK.  
-Community reports suggest keeping `com.google.android.gms.internal.consent_sdk.**`. citeturn1search7
+Community reports suggest keeping `com.google.android.gms.internal.consent_sdk.**`.
 
 ## API (EasyUmp)
 
