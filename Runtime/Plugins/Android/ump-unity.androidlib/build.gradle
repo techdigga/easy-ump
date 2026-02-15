@@ -6,6 +6,7 @@ android {
     def targetSdk = rootProject.ext.has('targetSdkVersion') ? rootProject.ext.targetSdkVersion : 34
 
     compileSdkVersion compileSdk
+    namespace "com.techdigga.easyump"
 
     defaultConfig {
         minSdkVersion minSdk
