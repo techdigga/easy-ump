@@ -182,3 +182,5 @@ The UMP SDK writes IAB TCF values into local storage. You can read:
 ## Notes
 
 - Calls are serialized; overlapping operations return an error with code `-3`.
+- Android permissions required by UMP network calls are included by this package manifest.
+- If AndroidX conflicts appear at runtime, run EDM4U `Force Resolve` and rebuild.

@@ -1,5 +1,16 @@
 # Changelog
 
+## 1.0.3
+
+- Fix Android editor popup reflection ambiguity (`AmbiguousMatchException`).
+- Add AGP 8 namespace in Android library Gradle config.
+- Add Android network permissions in plugin manifest (`INTERNET`, `ACCESS_NETWORK_STATE`).
+- Add explicit Android dependencies for stable runtime/build compatibility:
+  - `com.google.android.ump:user-messaging-platform:4.0.0`
+  - `androidx.core:core:1.12.0`
+  - `compileOnly` Unity classes jar reference for `UnityPlayer`.
+- Add more runtime debug logs across init/show/reshow/reset and callback lifecycle.
+
 ## 1.0.2
 
 - Fix iOS postprocessor missing System.IO.
