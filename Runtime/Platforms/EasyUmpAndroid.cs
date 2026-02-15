@@ -247,10 +247,17 @@ namespace EasyUmp
                 if (config != null && config.AutoShow)
                 {
                     Logger.Debug(LogMessages.AutoShowTriggered);
-                    cb?.Invoke();
                     owner.Show(
-                        onDismissed: () => { },
-                        onFailure: error => { Logger.Warning(error.Message); });
+                        onDismissed: () =>
+                        {
+                            UmpClient.NotifyAutoShowCompleted();
+                            cb?.Invoke();
+                        },
+                        onFailure: error =>
+                        {
+                            Logger.Warning(error.Message);
+                            UmpClient.NotifyAutoShowFailed(error);
+                        });
                     return;
                 }
 

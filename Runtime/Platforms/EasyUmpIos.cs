@@ -28,6 +28,7 @@ namespace EasyUmp
             UnityEngine.Object.DontDestroyOnLoad(go);
             receiver = go.AddComponent<CallbackReceiver>();
             receiver.Bind(this);
+            EasyUmpIosBridgeSetUnityCallbackObject(UnityNativeBridgeConstants.CallbackObjectName);
 
             var config = EasyUmpRuntimeConfig.Load();
             if (config != null)
@@ -195,10 +196,17 @@ namespace EasyUmp
                 if (config != null && config.AutoShow)
                 {
                     Logger.Debug(LogMessages.AutoShowTriggered);
-                    cb?.Invoke();
                     owner.Show(
-                        onDismissed: () => { },
-                        onFailure: error => { Logger.Warning(error.Message); });
+                        onDismissed: () =>
+                        {
+                            UmpClient.NotifyAutoShowCompleted();
+                            cb?.Invoke();
+                        },
+                        onFailure: error =>
+                        {
+                            Logger.Warning(error.Message);
+                            UmpClient.NotifyAutoShowFailed(error);
+                        });
                     return;
                 }
 
@@ -275,6 +283,9 @@ namespace EasyUmp
                 }
             }
         }
+
+        [DllImport("__Internal")]
+        private static extern void EasyUmpIosBridgeSetUnityCallbackObject(string objectName);
 
         [DllImport("__Internal")]
         private static extern void EasyUmpIosBridgeInit(string optionsJson);

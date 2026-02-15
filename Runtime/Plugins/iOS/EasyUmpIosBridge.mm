@@ -8,7 +8,7 @@ extern "C" {
     UIViewController* UnityGetGLViewController();
 }
 
-static const char* kCallbackObject = "__EasyUmpCallbacks";
+static NSString* gCallbackObject = @"__EasyUmpCallbacks";
 
 static const char* kOnInitSuccess = "OnInitSuccess";
 static const char* kOnInitFailure = "OnInitFailure";
@@ -33,7 +33,11 @@ static void SendMessage(const char* method, NSString* payload) {
     if (payload == nil) {
         payload = @"";
     }
-    UnitySendMessage(kCallbackObject, method, payload.UTF8String);
+    const char* callbackObject = gCallbackObject.UTF8String;
+    if (callbackObject == nullptr || callbackObject[0] == '\0') {
+        return;
+    }
+    UnitySendMessage(callbackObject, method, payload.UTF8String);
 }
 
 static void SendError(const char* method, NSInteger code, NSString* message, NSString* domain) {
@@ -90,12 +94,39 @@ static UMPRequestParameters* BuildRequestParameters(NSString* optionsJson) {
             debugSettings.geography = (UMPDebugGeography)debugGeo.integerValue;
         }
         if ([testIds isKindOfClass:[NSArray class]]) {
-            debugSettings.testDeviceIdentifiers = testIds;
+            NSMutableArray<NSString*>* sanitizedIds = [NSMutableArray array];
+            for (id value in (NSArray*)testIds) {
+                if (![value isKindOfClass:[NSString class]]) {
+                    continue;
+                }
+                NSString* idString = [(NSString*)value stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+                if (idString.length > 0) {
+                    [sanitizedIds addObject:idString];
+                }
+            }
+            if (sanitizedIds.count > 0) {
+                debugSettings.testDeviceIdentifiers = sanitizedIds;
+            }
         }
         params.debugSettings = debugSettings;
     }
 
     return params;
+}
+
+extern "C" void EasyUmpIosBridgeSetUnityCallbackObject(const char* objectName) {
+    if (objectName == nullptr) {
+        gCallbackObject = @"__EasyUmpCallbacks";
+        return;
+    }
+
+    NSString* callbackObject = [NSString stringWithUTF8String:objectName];
+    if (callbackObject == nil || callbackObject.length == 0) {
+        gCallbackObject = @"__EasyUmpCallbacks";
+        return;
+    }
+
+    gCallbackObject = callbackObject;
 }
 
 extern "C" void EasyUmpIosBridgeInit(const char* optionsJson) {
