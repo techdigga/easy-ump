@@ -1,4 +1,5 @@
 using System;
+using System.Reflection;
 
 namespace EasyUmp
 {
@@ -95,7 +96,12 @@ namespace EasyUmp
                 return false;
             }
 
-            var method = type.GetMethod("Show");
+            var method = type.GetMethod(
+                "Show",
+                BindingFlags.Public | BindingFlags.Static,
+                null,
+                new[] { typeof(string), typeof(Action), typeof(Action<UmpError>) },
+                null);
             if (method == null)
             {
                 return false;
