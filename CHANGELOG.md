@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.0.4
+
+- Add `Runtime/Examples/UmpFlowExample.cs` with a complete runtime flow:
+  - `Init`
+  - `Show`
+  - consent value reads
+  - delayed `Reshow`
+- Document the example script in `README.md`.
+
 ## 1.0.3
 
 - Fix Android editor popup reflection ambiguity (`AmbiguousMatchException`).
