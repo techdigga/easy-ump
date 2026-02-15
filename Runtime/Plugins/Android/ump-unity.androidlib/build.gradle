@@ -19,4 +19,7 @@ android {
 }
 
 dependencies {
+    // Compile against UnityPlayer APIs without packaging Unity classes in this AAR.
+    compileOnly files("${project(':unityLibrary').projectDir}/libs/unity-classes.jar")
+    implementation 'com.google.android.ump:user-messaging-platform:4.0.0'
 }
