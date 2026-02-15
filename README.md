@@ -170,6 +170,18 @@ var purposeConsents = UmpClient.GetPurposeConsentsString();
 var gdprApplies = UmpClient.GetGdprApplies();
 ```
 
+## Example Script
+
+For a simple end-to-end runtime flow, see:
+
+- `Runtime/Examples/UmpFlowExample.cs`
+
+It covers:
+- `Init`
+- `Show`
+- consent value reads
+- delayed `Reshow`
+
 ## IAB TCF Consent Strings
 
 The UMP SDK writes IAB TCF values into local storage. You can read:
