@@ -104,6 +104,7 @@ namespace EasyUmp
 
             var merged = MergeOptions(options);
             var payload = JsonUtility.ToJson(merged);
+            Logger.Debug(string.Format(LogMessages.OperationStarted, "Init"));
             java.CallStatic(UnityNativeBridgeConstants.InitMethod, payload);
         }
 
@@ -120,6 +121,7 @@ namespace EasyUmp
             EnsureInitialized();
             onShowDismissed = onDismissed;
             onShowFailed = onFailure;
+            Logger.Debug(string.Format(LogMessages.OperationStarted, "Show"));
             java.CallStatic(UnityNativeBridgeConstants.ShowMethod);
         }
 
@@ -136,6 +138,7 @@ namespace EasyUmp
             EnsureInitialized();
             onReshowDismissed = onDismissed;
             onReshowFailed = onFailure;
+            Logger.Debug(string.Format(LogMessages.OperationStarted, "Reshow"));
             java.CallStatic(UnityNativeBridgeConstants.ReshowMethod);
         }
 
@@ -145,6 +148,7 @@ namespace EasyUmp
         public void Reset()
         {
             EnsureInitialized();
+            Logger.Debug(LogMessages.ResetRequested);
             java.CallStatic(UnityNativeBridgeConstants.ResetMethod);
         }
 
@@ -158,6 +162,7 @@ namespace EasyUmp
                 return;
             }
 
+            Logger.Debug(LogMessages.AndroidBridgeInitializing);
             java = new AndroidJavaClass(UnityNativeBridgeConstants.AndroidJavaClass);
             var go = new GameObject(UnityNativeBridgeConstants.CallbackObjectName);
             UnityEngine.Object.DontDestroyOnLoad(go);
@@ -170,6 +175,8 @@ namespace EasyUmp
             {
                 Logger.Enabled = config.DebugLogging;
             }
+
+            Logger.Debug(LogMessages.AndroidBridgeReady);
         }
 
         private static UmpInitOptions MergeOptions(UmpInitOptions options)
@@ -191,6 +198,7 @@ namespace EasyUmp
         {
             if (operationInProgress)
             {
+                Logger.Warning(string.Format(LogMessages.OperationRejectedInProgress, "Operation"));
                 if (onFailure != null)
                 {
                     var error = new UmpError { Code = -3, Message = ErrorMessages.OperationInProgress };
@@ -229,6 +237,7 @@ namespace EasyUmp
             /// </summary>
             public void OnInitSuccess(string _)
             {
+                Logger.Debug(string.Format(LogMessages.OperationCompleted, "Init"));
                 var cb = owner.onInitSuccess;
                 owner.onInitSuccess = null;
                 owner.onInitFailure = null;
@@ -237,6 +246,7 @@ namespace EasyUmp
                 var config = EasyUmpRuntimeConfig.Load();
                 if (config != null && config.AutoShow)
                 {
+                    Logger.Debug(LogMessages.AutoShowTriggered);
                     cb?.Invoke();
                     owner.Show(
                         onDismissed: () => { },
@@ -262,6 +272,7 @@ namespace EasyUmp
                 if (cb != null)
                 {
                     var error = ParseError(json);
+                    Logger.Warning(string.Format(LogMessages.OperationFailed, "Init", error.Code, error.Message));
                     MainThreadDispatcher.Post(() => cb(error));
                 }
             }
@@ -271,6 +282,7 @@ namespace EasyUmp
             /// </summary>
             public void OnShowDismissed(string _)
             {
+                Logger.Debug(string.Format(LogMessages.OperationCompleted, "Show"));
                 var cb = owner.onShowDismissed;
                 owner.onShowDismissed = null;
                 owner.onShowFailed = null;
@@ -293,6 +305,7 @@ namespace EasyUmp
                 if (cb != null)
                 {
                     var error = ParseError(json);
+                    Logger.Warning(string.Format(LogMessages.OperationFailed, "Show", error.Code, error.Message));
                     MainThreadDispatcher.Post(() => cb(error));
                 }
             }
@@ -302,6 +315,7 @@ namespace EasyUmp
             /// </summary>
             public void OnReshowDismissed(string _)
             {
+                Logger.Debug(string.Format(LogMessages.OperationCompleted, "Reshow"));
                 var cb = owner.onReshowDismissed;
                 owner.onReshowDismissed = null;
                 owner.onReshowFailed = null;
@@ -324,6 +338,7 @@ namespace EasyUmp
                 if (cb != null)
                 {
                     var error = ParseError(json);
+                    Logger.Warning(string.Format(LogMessages.OperationFailed, "Reshow", error.Code, error.Message));
                     MainThreadDispatcher.Post(() => cb(error));
                 }
             }

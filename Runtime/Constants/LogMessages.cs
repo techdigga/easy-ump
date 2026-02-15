@@ -5,6 +5,26 @@ namespace EasyUmp
     /// </summary>
     public static class LogMessages
     {
+        public const string ResolvePlatformImplementation = "Resolving UMP platform implementation.";
+        public const string UsingAndroidImplementation = "Using Android UMP implementation.";
+        public const string UsingIosImplementation = "Using iOS UMP implementation.";
+        public const string UsingEditorImplementation = "Using Editor UMP implementation.";
+
+        public const string InitRequested = "Init requested.";
+        public const string ShowRequested = "Show requested.";
+        public const string ReshowRequested = "Reshow requested.";
+        public const string ResetRequested = "Reset requested.";
+
+        public const string AndroidBridgeInitializing = "Initializing Android bridge.";
+        public const string AndroidBridgeReady = "Android bridge initialized.";
+        public const string IosBridgeReady = "iOS bridge initialized.";
+
+        public const string OperationStarted = "{0} started.";
+        public const string OperationCompleted = "{0} completed.";
+        public const string OperationFailed = "{0} failed. Code={1}, Message={2}";
+        public const string OperationRejectedInProgress = "{0} rejected because another operation is in progress.";
+        public const string AutoShowTriggered = "Auto-show is enabled. Calling Show after Init success.";
+
         public const string AndroidAppIdMissing =
             "AdMob Application Id is not set. Set it in Project Settings > Easy UMP.";
 

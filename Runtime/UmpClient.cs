@@ -20,12 +20,16 @@ namespace EasyUmp
                     return implementation;
                 }
 
+                Logger.Debug(LogMessages.ResolvePlatformImplementation);
 #if UNITY_ANDROID && !UNITY_EDITOR
                 implementation = new EasyUmpAndroid();
+                Logger.Debug(LogMessages.UsingAndroidImplementation);
 #elif UNITY_IOS && !UNITY_EDITOR
                 implementation = new EasyUmpIos();
+                Logger.Debug(LogMessages.UsingIosImplementation);
 #else
                 implementation = new EasyUmpEditor();
+                Logger.Debug(LogMessages.UsingEditorImplementation);
 #endif
                 return implementation;
             }
@@ -88,26 +92,39 @@ namespace EasyUmp
         /// <param name="options">Initialization options (may be null).</param>
         /// <param name="onSuccess">Invoked when consent info update succeeds.</param>
         /// <param name="onFailure">Invoked with error when init fails.</param>
-        public static void Init(UmpInitOptions options, System.Action onSuccess, System.Action<UmpError> onFailure) =>
+        public static void Init(UmpInitOptions options, System.Action onSuccess, System.Action<UmpError> onFailure)
+        {
+            Logger.Debug(LogMessages.InitRequested);
             Impl.Init(options, onSuccess, onFailure);
+        }
         /// <summary>
         /// Shows the consent form if required.
         /// </summary>
         /// <param name="onDismissed">Invoked when the form is dismissed or not required.</param>
         /// <param name="onFailure">Invoked with error when show fails.</param>
-        public static void Show(System.Action onDismissed, System.Action<UmpError> onFailure) =>
+        public static void Show(System.Action onDismissed, System.Action<UmpError> onFailure)
+        {
+            Logger.Debug(LogMessages.ShowRequested);
             Impl.Show(onDismissed, onFailure);
+        }
         /// <summary>
         /// Shows the privacy options form.
         /// </summary>
         /// <param name="onDismissed">Invoked when the form is dismissed.</param>
         /// <param name="onFailure">Invoked with error when show fails.</param>
-        public static void Reshow(System.Action onDismissed, System.Action<UmpError> onFailure) =>
+        public static void Reshow(System.Action onDismissed, System.Action<UmpError> onFailure)
+        {
+            Logger.Debug(LogMessages.ReshowRequested);
             Impl.Reshow(onDismissed, onFailure);
+        }
         /// <summary>
         /// Resets local consent information.
         /// </summary>
-        public static void Reset() => Impl.Reset();
+        public static void Reset()
+        {
+            Logger.Debug(LogMessages.ResetRequested);
+            Impl.Reset();
+        }
 
         private static void WarnIfConsentStringsUnavailable()
         {
