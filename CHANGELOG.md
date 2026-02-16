@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.0.5
+
+- Fix iOS callback object wiring by adding a native callback-object setter and using Unity-side callback constant.
+- Improve auto-show flow on Android and iOS:
+  - `Init` success callback now runs after auto-show dismiss completes.
+  - Add `UmpClient.AutoShowCompleted` and `UmpClient.AutoShowFailed` events.
+- Sanitize iOS test device identifiers before applying `UMPDebugSettings`.
+- Validate iOS simulator runtime flow.
+
 ## 1.0.4
 
 - Add `Runtime/Examples/UmpFlowExample.cs` with a complete runtime flow:

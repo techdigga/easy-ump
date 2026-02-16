@@ -109,6 +109,8 @@ Community reports suggest keeping `com.google.android.gms.internal.consent_sdk.*
 - `UmpClient.GetAdditionalConsentString()`
 - `UmpClient.GetPurposeConsentsString()`
 - `UmpClient.GetGdprApplies()` (returns `-1` if unknown)
+- `UmpClient.AutoShowCompleted`
+- `UmpClient.AutoShowFailed`
 
 ## API Reference (Summary)
 
@@ -125,11 +127,16 @@ Community reports suggest keeping `com.google.android.gms.internal.consent_sdk.*
 | `UmpClient.GetAdditionalConsentString()` | IAB TCF Additional Consent String. | `string` |
 | `UmpClient.GetPurposeConsentsString()` | IAB TCF Purpose Consents String. | `string` |
 | `UmpClient.GetGdprApplies()` | IAB TCF GDPR Applies (`-1` if unknown). | `int` |
+| `UmpClient.AutoShowCompleted` | Event fired when Auto-show dismisses successfully. | `event Action` |
+| `UmpClient.AutoShowFailed` | Event fired when Auto-show fails. | `event Action<UmpError>` |
 
 ## Usage
 
 ```csharp
 using EasyUmp;
+
+UmpClient.AutoShowCompleted += () => UnityEngine.Debug.Log("Auto-show completed");
+UmpClient.AutoShowFailed += error => UnityEngine.Debug.LogError($"Auto-show failed: {error.Code} - {error.Message}");
 
 var options = new UmpInitOptions
 {
