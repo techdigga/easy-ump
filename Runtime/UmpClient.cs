@@ -7,6 +7,14 @@ namespace EasyUmp
     {
         private static IUmpClient implementation;
         private static bool consentStringsWarned;
+        /// <summary>
+        /// Fired when Auto-show (enabled in settings) successfully dismisses the consent form.
+        /// </summary>
+        public static event System.Action AutoShowCompleted;
+        /// <summary>
+        /// Fired when Auto-show (enabled in settings) fails while showing consent form.
+        /// </summary>
+        public static event System.Action<UmpError> AutoShowFailed;
 
         /// <summary>
         /// Lazily resolves the platform implementation.
@@ -124,6 +132,16 @@ namespace EasyUmp
         {
             Logger.Debug(LogMessages.ResetRequested);
             Impl.Reset();
+        }
+
+        internal static void NotifyAutoShowCompleted()
+        {
+            AutoShowCompleted?.Invoke();
+        }
+
+        internal static void NotifyAutoShowFailed(UmpError error)
+        {
+            AutoShowFailed?.Invoke(error);
         }
 
         private static void WarnIfConsentStringsUnavailable()
