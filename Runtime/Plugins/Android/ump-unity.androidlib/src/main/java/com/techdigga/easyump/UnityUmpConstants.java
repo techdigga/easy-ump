@@ -16,6 +16,7 @@ final class UnityUmpConstants {
     static final String JSON_KEY_TAG_UNDER_AGE = "TagForUnderAgeOfConsent";
     static final String JSON_KEY_DEBUG_GEOGRAPHY = "DebugGeography";
     static final String JSON_KEY_TEST_DEVICE_IDS = "TestDeviceHashedIds";
+    static final String JSON_KEY_CONSENT_SYNC_ID = "ConsentSyncId";
 
     static final String IAB_TCF_TC_STRING = "IABTCF_TCString";
     static final String IAB_TCF_ADDL_CONSENT = "IABTCF_AddtlConsent";

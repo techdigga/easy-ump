@@ -23,6 +23,7 @@ static NSString* const kJsonDomain = @"Domain";
 static NSString* const kJsonTagUnderAge = @"TagForUnderAgeOfConsent";
 static NSString* const kJsonDebugGeography = @"DebugGeography";
 static NSString* const kJsonTestDeviceIds = @"TestDeviceHashedIds";
+static NSString* const kJsonConsentSyncId = @"ConsentSyncId";
 
 static NSString* const kIabTcString = @"IABTCF_TCString";
 static NSString* const kIabAddtlConsent = @"IABTCF_AddtlConsent";
@@ -84,6 +85,14 @@ static UMPRequestParameters* BuildRequestParameters(NSString* optionsJson) {
     NSNumber* tagUnderAge = obj[kJsonTagUnderAge];
     if ([tagUnderAge isKindOfClass:[NSNumber class]] && tagUnderAge.boolValue) {
         params.tagForUnderAgeOfConsent = YES;
+    }
+
+    NSString* consentSyncId = obj[kJsonConsentSyncId];
+    if ([consentSyncId isKindOfClass:[NSString class]]) {
+        NSString* trimmedConsentSyncId = [consentSyncId stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        if (trimmedConsentSyncId.length > 0) {
+            params.consentSyncID = trimmedConsentSyncId;
+        }
     }
 
     NSNumber* debugGeo = obj[kJsonDebugGeography];
