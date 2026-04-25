@@ -1,0 +1,19 @@
+name: Package Validation
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+      - 'release-candidates/**'
+
+jobs:
+  validate-package:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Validate package artifacts
+        run: bash scripts/validate-package.sh
