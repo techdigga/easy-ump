@@ -95,6 +95,30 @@ namespace EasyUmp.Editor.Tests
         }
 
         [Test]
+        public void MergeWithRuntimeDefaults_CreatesDefaultOptionsWhenNull()
+        {
+            var merged = UmpInitOptionsSanitizer.MergeWithRuntimeDefaults(null);
+
+            Assert.IsNotNull(merged);
+            Assert.IsNull(merged.ConsentSyncId);
+            Assert.IsNotNull(merged.TestDeviceHashedIds);
+            Assert.AreEqual(0, merged.TestDeviceHashedIds.Count);
+        }
+
+        [Test]
+        public void MergeWithRuntimeDefaults_PreservesConsentSyncIdWhenAlreadyTrimmed()
+        {
+            var options = new UmpInitOptions
+            {
+                ConsentSyncId = "123e4567-e89b-12d3-a456-426614174000"
+            };
+
+            var merged = UmpInitOptionsSanitizer.MergeWithRuntimeDefaults(options);
+
+            Assert.AreEqual("123e4567-e89b-12d3-a456-426614174000", merged.ConsentSyncId);
+        }
+
+        [Test]
         public void InitOptionsSerialization_IncludesConsentSyncId()
         {
             var options = new UmpInitOptions
