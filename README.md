@@ -23,6 +23,7 @@ Designed for Unity **2022 LTS** and **Unity 6 (v6000)**.
 - iOS: ✅ Supported
 - UMP SDK (Android): `com.google.android.ump:user-messaging-platform:4.0.0`
 - UMP SDK (iOS): `pod 'GoogleUserMessagingPlatform'`
+- Consent Sync Identifier: Beta
 
 ## Install (UPM)
 
@@ -111,6 +112,7 @@ Community reports suggest keeping `com.google.android.gms.internal.consent_sdk.*
 - `UmpClient.GetGdprApplies()` (returns `-1` if unknown)
 - `UmpClient.AutoShowCompleted`
 - `UmpClient.AutoShowFailed`
+- `UmpInitOptions.ConsentSyncId` (beta)
 
 ## API Reference (Summary)
 
@@ -129,6 +131,18 @@ Community reports suggest keeping `com.google.android.gms.internal.consent_sdk.*
 | `UmpClient.GetGdprApplies()` | IAB TCF GDPR Applies (`-1` if unknown). | `int` |
 | `UmpClient.AutoShowCompleted` | Event fired when Auto-show dismisses successfully. | `event Action` |
 | `UmpClient.AutoShowFailed` | Event fired when Auto-show fails. | `event Action<UmpError>` |
+| `UmpInitOptions.ConsentSyncId` | Beta consent sync identifier sent with `Init`. | `string` |
+
+## Consent Sync Identifier (Beta)
+
+Google documents consent sync identifiers as a beta feature for syncing consent across apps that share the same identifier.
+
+Before using it:
+
+- Configure the consent sync setup in AdMob Privacy & messaging.
+- Hash or encrypt the identifier before assigning it.
+- Do not send raw PII.
+- Follow Google's current format rules for the identifier. The accepted format may change while the feature remains beta.
 
 ## Usage
 
@@ -142,6 +156,8 @@ var options = new UmpInitOptions
 {
     TagForUnderAgeOfConsent = false,
     DebugGeography = UmpDebugGeography.Disabled,
+    // Beta feature. Hash or encrypt before assigning.
+    ConsentSyncId = "123e4567-e89b-12d3-a456-426614174000",
     TestDeviceHashedIds = { "TEST_DEVICE_HASH" }
 };
 
@@ -185,6 +201,7 @@ For a simple end-to-end runtime flow, see:
 
 It covers:
 - `Init`
+- beta consent sync ID assignment
 - `Show`
 - consent value reads
 - delayed `Reshow`
@@ -203,3 +220,4 @@ The UMP SDK writes IAB TCF values into local storage. You can read:
 - Calls are serialized; overlapping operations return an error with code `-3`.
 - Android permissions required by UMP network calls are included by this package manifest.
 - If AndroidX conflicts appear at runtime, run EDM4U `Force Resolve` and rebuild.
+- Consent sync identifiers are beta and upstream-controlled by Google. Validate against the current Google docs before release.

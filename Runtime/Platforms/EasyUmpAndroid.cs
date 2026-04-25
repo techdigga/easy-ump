@@ -102,7 +102,7 @@ namespace EasyUmp
             onInitSuccess = onSuccess;
             onInitFailure = onFailure;
 
-            var merged = MergeOptions(options);
+            var merged = UmpInitOptionsSanitizer.MergeWithRuntimeDefaults(options);
             var payload = JsonUtility.ToJson(merged);
             Logger.Debug(string.Format(LogMessages.OperationStarted, "Init"));
             java.CallStatic(UnityNativeBridgeConstants.InitMethod, payload);
@@ -177,21 +177,6 @@ namespace EasyUmp
             }
 
             Logger.Debug(LogMessages.AndroidBridgeReady);
-        }
-
-        private static UmpInitOptions MergeOptions(UmpInitOptions options)
-        {
-            var merged = options ?? new UmpInitOptions();
-            if (merged.TestDeviceHashedIds == null || merged.TestDeviceHashedIds.Count == 0)
-            {
-                var config = EasyUmpRuntimeConfig.Load();
-                if (config != null && config.TestDeviceHashedIds != null && config.TestDeviceHashedIds.Length > 0)
-                {
-                    merged.TestDeviceHashedIds = new System.Collections.Generic.List<string>(config.TestDeviceHashedIds);
-                }
-            }
-
-            return merged;
         }
 
         private bool TryBeginOperation(Action<UmpError> onFailure)

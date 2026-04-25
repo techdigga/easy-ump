@@ -1,6 +1,7 @@
 using NUnit.Framework;
 using UnityEditor;
 using UnityEngine;
+using System.Collections.Generic;
 
 namespace EasyUmp.Editor.Tests
 {
@@ -65,6 +66,70 @@ namespace EasyUmp.Editor.Tests
             Assert.AreEqual(string.Empty, editorImpl.GetAdditionalConsentString());
             Assert.AreEqual(string.Empty, editorImpl.GetPurposeConsentsString());
             Assert.AreEqual(-1, editorImpl.GetGdprApplies());
+        }
+
+        [Test]
+        public void MergeWithRuntimeDefaults_TrimsConsentSyncId()
+        {
+            var options = new UmpInitOptions
+            {
+                ConsentSyncId = "  123e4567-e89b-12d3-a456-426614174000  "
+            };
+
+            var merged = UmpInitOptionsSanitizer.MergeWithRuntimeDefaults(options);
+
+            Assert.AreEqual("123e4567-e89b-12d3-a456-426614174000", merged.ConsentSyncId);
+        }
+
+        [Test]
+        public void MergeWithRuntimeDefaults_ClearsWhitespaceOnlyConsentSyncId()
+        {
+            var options = new UmpInitOptions
+            {
+                ConsentSyncId = "   \n\t   "
+            };
+
+            var merged = UmpInitOptionsSanitizer.MergeWithRuntimeDefaults(options);
+
+            Assert.IsNull(merged.ConsentSyncId);
+        }
+
+        [Test]
+        public void MergeWithRuntimeDefaults_CreatesDefaultOptionsWhenNull()
+        {
+            var merged = UmpInitOptionsSanitizer.MergeWithRuntimeDefaults(null);
+
+            Assert.IsNotNull(merged);
+            Assert.IsNull(merged.ConsentSyncId);
+            Assert.IsNotNull(merged.TestDeviceHashedIds);
+            Assert.AreEqual(0, merged.TestDeviceHashedIds.Count);
+        }
+
+        [Test]
+        public void MergeWithRuntimeDefaults_PreservesConsentSyncIdWhenAlreadyTrimmed()
+        {
+            var options = new UmpInitOptions
+            {
+                ConsentSyncId = "123e4567-e89b-12d3-a456-426614174000"
+            };
+
+            var merged = UmpInitOptionsSanitizer.MergeWithRuntimeDefaults(options);
+
+            Assert.AreEqual("123e4567-e89b-12d3-a456-426614174000", merged.ConsentSyncId);
+        }
+
+        [Test]
+        public void InitOptionsSerialization_IncludesConsentSyncId()
+        {
+            var options = new UmpInitOptions
+            {
+                ConsentSyncId = "123e4567-e89b-12d3-a456-426614174000",
+                TestDeviceHashedIds = new List<string>()
+            };
+
+            var json = JsonUtility.ToJson(options);
+
+            StringAssert.Contains("\"ConsentSyncId\":\"123e4567-e89b-12d3-a456-426614174000\"", json);
         }
     }
 }

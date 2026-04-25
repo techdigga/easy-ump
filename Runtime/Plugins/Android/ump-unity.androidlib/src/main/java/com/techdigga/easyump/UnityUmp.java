@@ -208,6 +208,11 @@ public final class UnityUmp {
                 builder.setTagForUnderAgeOfConsent(true);
             }
 
+            String consentSyncId = obj.optString(UnityUmpConstants.JSON_KEY_CONSENT_SYNC_ID, "");
+            if (!consentSyncId.isEmpty()) {
+                builder.setConsentSyncId(consentSyncId);
+            }
+
             int debugGeography = obj.optInt(UnityUmpConstants.JSON_KEY_DEBUG_GEOGRAPHY, 0);
             JSONArray testIds = obj.optJSONArray(UnityUmpConstants.JSON_KEY_TEST_DEVICE_IDS);
             if (debugGeography != 0 || (testIds != null && testIds.length() > 0)) {

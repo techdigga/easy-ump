@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.1.0
+
+- Add beta consent sync identifier support through `UmpInitOptions.ConsentSyncId`.
+
 ## 1.0.5
 
 - Fix iOS callback object wiring by adding a native callback-object setter and using Unity-side callback constant.

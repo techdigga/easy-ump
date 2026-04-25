@@ -33,6 +33,12 @@ namespace EasyUmp
         public bool TagForUnderAgeOfConsent;
         public UmpDebugGeography DebugGeography = UmpDebugGeography.Disabled;
         public List<string> TestDeviceHashedIds = new List<string>();
+        /// <summary>
+        /// Beta: consent sync identifier forwarded to the native UMP SDK.
+        /// Hash or encrypt the identifier before assigning it. Google may change
+        /// the accepted format while the feature remains in beta.
+        /// </summary>
+        public string ConsentSyncId;
     }
 
     /// <summary>

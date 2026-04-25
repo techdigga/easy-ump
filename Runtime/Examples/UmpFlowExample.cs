@@ -13,6 +13,7 @@ namespace EasyUmp
         [SerializeField] private bool tagForUnderAgeOfConsent;
         [SerializeField] private UmpDebugGeography debugGeography = UmpDebugGeography.Disabled;
         [SerializeField] private string[] testDeviceHashedIds;
+        [SerializeField] private string consentSyncId;
 
         [Header("Flow")]
         [SerializeField] private bool callReshowAfterShow = true;
@@ -29,7 +30,9 @@ namespace EasyUmp
             var options = new UmpInitOptions
             {
                 TagForUnderAgeOfConsent = tagForUnderAgeOfConsent,
-                DebugGeography = debugGeography
+                DebugGeography = debugGeography,
+                // Beta feature. Hash or encrypt before assigning.
+                ConsentSyncId = consentSyncId
             };
 
             if (testDeviceHashedIds != null)
